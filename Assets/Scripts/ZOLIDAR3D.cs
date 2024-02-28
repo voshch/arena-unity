@@ -8,6 +8,7 @@ using Unity.Robotics.Core;
 using Unity.Robotics.ROSTCPConnector;
 using RosMessageTypes.Sensor;
 using RosMessageTypes.Std;
+using System.Collections.Generic;
 
 
 
@@ -122,7 +123,33 @@ public class ZOLIDAR3D : MonoBehaviour
     public string frame_id = "lidar_frame";
     string PublishTopic => topicNamespace + "/" + topic;
 
+    public void ConfigureLidar(Dictionary<string, object> configDict, string robotName, string jointName)
+    {
+        if (configDict.ContainsKey("topic"))
+            topic = (string)configDict["topic"];
 
+        if (configDict.ContainsKey("verticalUpFovDegrees"))
+            float.TryParse((string)configDict["verticalUpFovDegrees"], out _verticalUpFovDegrees);
+
+        if (configDict.ContainsKey("verticalDownFovDegrees"))
+            float.TryParse((string)configDict["verticalDownFovDegrees"], out _verticalDownFovDegrees);
+
+        if (configDict.ContainsKey("horizontalFovDegrees"))
+            float.TryParse((string)configDict["horizontalFovDegrees"], out _horizontalFovDegrees);
+
+        if (configDict.ContainsKey("verticalResolutionDegrees"))
+            float.TryParse((string)configDict["verticalResolutionDegrees"], out _verticalResolutionDegrees);
+
+        if (configDict.ContainsKey("horizontalResolutionDegrees"))
+            float.TryParse((string)configDict["horizontalResolutionDegrees"], out _horizontalResolutionDegrees);
+
+        if (configDict.ContainsKey("minRange"))
+            float.TryParse((string)configDict["minRange"], out _minRange);
+
+        if (configDict.ContainsKey("maxRange"))
+            float.TryParse((string)configDict["maxRange"], out _maxRange);
+
+    }
     // Start is called before the first frame update
     public void Start()
     {
