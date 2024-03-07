@@ -128,26 +128,26 @@ public class ZOLIDAR3D : MonoBehaviour
         if (configDict.ContainsKey("topic"))
             topic = (string)configDict["topic"];
 
-        if (configDict.ContainsKey("verticalUpFovDegrees"))
-            float.TryParse((string)configDict["verticalUpFovDegrees"], out _verticalUpFovDegrees);
+        if (configDict.ContainsKey("vertical_up_fov_degrees"))
+            float.TryParse((string)configDict["vertical_up_fov_degrees"], out _verticalUpFovDegrees);
 
-        if (configDict.ContainsKey("verticalDownFovDegrees"))
-            float.TryParse((string)configDict["verticalDownFovDegrees"], out _verticalDownFovDegrees);
+        if (configDict.ContainsKey("vertical_down_fov_degrees"))
+            float.TryParse((string)configDict["vertical_down_fov_degrees"], out _verticalDownFovDegrees);
 
-        if (configDict.ContainsKey("horizontalFovDegrees"))
-            float.TryParse((string)configDict["horizontalFovDegrees"], out _horizontalFovDegrees);
+        if (configDict.ContainsKey("horizontal_fov_degrees"))
+            float.TryParse((string)configDict["horizontal_fov_degrees"], out _horizontalFovDegrees);
 
-        if (configDict.ContainsKey("verticalResolutionDegrees"))
-            float.TryParse((string)configDict["verticalResolutionDegrees"], out _verticalResolutionDegrees);
+        if (configDict.ContainsKey("vertical_resolution_degrees"))
+            float.TryParse((string)configDict["vertical_resolution_degrees"], out _verticalResolutionDegrees);
 
-        if (configDict.ContainsKey("horizontalResolutionDegrees"))
-            float.TryParse((string)configDict["horizontalResolutionDegrees"], out _horizontalResolutionDegrees);
+        if (configDict.ContainsKey("horizontal_resolution_degrees"))
+            float.TryParse((string)configDict["horizontal_resolution_degrees"], out _horizontalResolutionDegrees);
 
-        if (configDict.ContainsKey("minRange"))
-            float.TryParse((string)configDict["minRange"], out _minRange);
+        if (configDict.ContainsKey("min_range"))
+            float.TryParse((string)configDict["min_range"], out _minRange);
 
-        if (configDict.ContainsKey("maxRange"))
-            float.TryParse((string)configDict["maxRange"], out _maxRange);
+        if (configDict.ContainsKey("max_range"))
+            float.TryParse((string)configDict["max_range"], out _maxRange);
 
     }
     // Start is called before the first frame update
