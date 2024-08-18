@@ -36,7 +36,7 @@ public class OccupancyMapGeneratorWindow : EditorWindow
     private static bool GenerateOccupancyMapValidation()
     {
         var selected = Selection.activeObject;
-        Debug.Log(selected.GetType());
+        // Debug.Log(selected.GetType());
         Debug.Log(typeof(Scene).Name);
         return selected.GetType() == typeof(UnityEditor.SceneAsset);
     }

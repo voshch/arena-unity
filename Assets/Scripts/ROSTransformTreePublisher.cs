@@ -72,7 +72,10 @@ public class ROSTransformTreePublisher : MonoBehaviour
         var tfMessageList = new List<TransformStampedMsg>();
 
         var tfRootToGlobal = new TransformStampedMsg(
-            new HeaderMsg(0, new TimeStamp(Clock.time), m_TopicId + "/" + m_GlobalFrameId),
+            new HeaderMsg{
+                stamp = new TimeStamp(Clock.time),
+                frame_id = m_TopicId + "/" + m_GlobalFrameId
+            },
             m_TopicId + "/" + m_TransformRoot.name,
             m_TransformRoot.Transform.To<FLU>());
         tfMessageList.Add(tfRootToGlobal);

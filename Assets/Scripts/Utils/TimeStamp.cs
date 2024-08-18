@@ -32,7 +32,7 @@ namespace Unity.Robotics.Core
         // NOTE: We could define these operators in a transport-specific extension package
         public static implicit operator TimeMsg(TimeStamp stamp)
         {
-            return new TimeMsg((uint)stamp.Seconds, stamp.NanoSeconds);
+            return new TimeMsg((uint)stamp.Seconds, (uint)stamp.NanoSeconds);
         }
 
         public static implicit operator TimeStamp(TimeMsg stamp)

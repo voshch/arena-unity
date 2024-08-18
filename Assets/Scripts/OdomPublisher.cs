@@ -56,7 +56,10 @@ public class OdomPublisher : MonoBehaviour
             new double[36]
         );
         OdometryMsg odomMsg = new(
-            new HeaderMsg(0, new TimeStamp(Clock.time), robotName + "/" + odomTopicName),
+            new HeaderMsg{
+                stamp = new TimeStamp(Clock.time),
+                frame_id = robotName + "/" + odomTopicName
+            },
             robotName + "/" + name,
             pose,
             twist

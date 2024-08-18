@@ -32,8 +32,6 @@ public class RGBDSensor : MonoBehaviour
     private Texture2D depthTex;
     private Rect textureRect;
 
-    private uint seq = 0;
-
     private CustomPassVolume customPassVolume;
 
 
@@ -341,8 +339,20 @@ public class RGBDSensor : MonoBehaviour
         }
 
         byte[] pixels = request.GetData<byte>().ToArray();
-        RosMessageTypes.Std.HeaderMsg header = new RosMessageTypes.Std.HeaderMsg(seq, new TimeStamp(Unity.Robotics.Core.Clock.time), frameId);
-        RosMessageTypes.Sensor.ImageMsg msg = new(header, (uint)Height, (uint)Width, "rgba8", 4, (uint)Width * 4, pixels);
+        
+        RosMessageTypes.Sensor.ImageMsg msg = new RosMessageTypes.Sensor.ImageMsg{
+            header = new RosMessageTypes.Std.HeaderMsg
+            {
+                frame_id = frameId,
+                stamp = new TimeStamp(Unity.Robotics.Core.Clock.time)
+            },
+            height = (uint)Height,
+            width = (uint)Width,
+            encoding = "rgba8",
+            is_bigendian = 4,
+            step = (uint)Width * 4,
+            data = pixels
+        };
         imagePublisher.Publish(msg);
     }
 
@@ -396,8 +406,19 @@ public class RGBDSensor : MonoBehaviour
                 bytes[i + 1] = colors[reverseI].g;
             }
         });
-        RosMessageTypes.Std.HeaderMsg header = new RosMessageTypes.Std.HeaderMsg(seq, new TimeStamp(Unity.Robotics.Core.Clock.time), frameId);
-        RosMessageTypes.Sensor.ImageMsg msg = new(header, (uint)Height, (uint)Width, "mono16", 1, (uint)Width * 2, bytes);
+        RosMessageTypes.Sensor.ImageMsg msg = new RosMessageTypes.Sensor.ImageMsg{
+            header = new RosMessageTypes.Std.HeaderMsg
+            {
+                frame_id = frameId,
+                stamp = new TimeStamp(Unity.Robotics.Core.Clock.time)
+            },
+            height = (uint)Height,
+            width = (uint)Width,
+            encoding = "mono16",
+            is_bigendian = 1,
+            step = (uint)Width * 2,
+            data = bytes
+        };
         depthPublisher.Publish(msg);
     }
 
@@ -414,8 +435,19 @@ public class RGBDSensor : MonoBehaviour
 
         Buffer.BlockCopy(floatPixelBuffer, 0, bytePixelBuffer, 0, bytePixelBuffer.Length);
 
-        RosMessageTypes.Std.HeaderMsg header = new RosMessageTypes.Std.HeaderMsg(seq, new TimeStamp(time), frameId);
-        RosMessageTypes.Sensor.ImageMsg msg = new(header, (uint)Height, (uint)Width, "32FC1", (byte)(BitConverter.IsLittleEndian ? 0 : 1), (uint)Width * 4, bytePixelBuffer);
+        RosMessageTypes.Sensor.ImageMsg msg = new RosMessageTypes.Sensor.ImageMsg{
+            header = new RosMessageTypes.Std.HeaderMsg
+            {
+                frame_id = frameId,
+                stamp = new TimeStamp(time)
+            },
+            height = (uint)Height,
+            width = (uint)Width,
+            encoding = "32FC1",
+            is_bigendian = (byte)(BitConverter.IsLittleEndian ? 0 : 1),
+            step = (uint)Width * 4,
+            data = bytePixelBuffer
+        };
         depthPublisher.Publish(msg);
     }
 
